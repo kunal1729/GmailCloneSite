@@ -18,23 +18,29 @@ export default function CheckEmailsPage() {
                 const smtpUser = localStorage.getItem('smtpUser');
                 const smtpPass = localStorage.getItem('smtpPass');
                 const ImapHost = localStorage.getItem('host');
-                const ImapPort = localStorage.getItem('ImapPort');
+                const smtpPort = localStorage.getItem('smtpPort');
 
                 // Validate the credentials are available
-                if (!smtpUser || !smtpPass || !ImapHost || !ImapPort) {
+                if (!smtpUser || !smtpPass || !ImapHost || !smtpPort) {
                     setMessage('SMTP credentials are missing. Please configure your account.');
                     setCredentialsMissing(true);
                     setLoading(false);
                     return;
                 }
 
-                // Send credentials to the API
-                const response = await axios.post('/api/check-emails', {
-                    user: smtpUser,
-                    password: smtpPass,
-                    host: ImapHost,
-                    port: ImapPort
-                });
+                // Send credentials to the AP
+                let response;
+                try{
+                    response = await axios.post('/api/check-emails', {
+                        user : smtpUser, password : smtpPass, host : ImapHost, port : smtpPort 
+                    });
+                }
+                catch{
+                    console.log('hi')
+                }
+                
+
+                console.log(response.data)
 
                 const data = await response.json();
                 if (response.ok) {

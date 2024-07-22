@@ -5,8 +5,6 @@ import Mails from '../components/Mails'
 import { useState } from 'react'
 import NewMail from '../components/NewMail'
 import AppContext  from '../context.js'
-import { useEffect } from 'react'
-import axios from 'axios'
 
 const Emails = () => {
 
@@ -14,14 +12,7 @@ const Emails = () => {
   
   const {menu, type, setType} = useContext(AppContext)
   const {smtpPass, smtpPort, smtpUser, host} = useContext(AppContext);
-
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [filteredEmails, setFilteredEmails] = useState([]);
-    const [checklist, setChecklist] = useState([])
     
-    console.log(type)
-
   return (
     <div className='flex p-2 relative min-h-screen h-full pb-2 '>
         {menu ? (

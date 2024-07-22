@@ -3,8 +3,9 @@
 import checkForEmails from '../../lib/recieveEmails';
 
 export default async function POST(req) {
-    console.log(req)
-    const { user, password, host, port } = await req.json();
+    const a  = req.params
+    console.log(a)
+    const { user, password, host, port } = a;
 
     if (!user || !password || !host || !port) {
         return Response.json({ message: 'Missing required fields' }, { status: 400 });
