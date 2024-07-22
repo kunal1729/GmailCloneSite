@@ -7,6 +7,7 @@ const clientPromise = MongoClient.connect(process.env.MONGODB_URI, {
 });
 
 export async function POST(request) {
+  console.log(request)
   const body = await request.json();
   const { smtpUser, smtpPass, host, smtpPort, ImapPort } = body;
   console.log("Received request with body:", body);
