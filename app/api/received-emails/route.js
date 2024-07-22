@@ -3,6 +3,7 @@ import clientPromise from '../../lib/mongodb'
 
 
 export async function GET(request) {
+    
     console.log('hi');
     
     // Check if the method is GET, otherwise return 405
