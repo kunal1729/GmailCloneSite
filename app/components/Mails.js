@@ -158,17 +158,19 @@ const Mails = ({type}) => {
     fetchEmails();
   }, [currentPage, type]);
 
-  async function showInbox()
-  {
-    const response = await axios.get('/api/received-emails');
-    console.log(response)
-    setInbox(response.data.slice((currentPage - 1) * 10, currentPage * 10));
-    setFilteredInbox(response.data.slice((currentPage - 1) * 10, currentPage * 10))
-    setTotalPages(response.data.length/10)
-    setLoading(false);
-  }
+  
 
   useEffect(() => {
+
+    async function showInbox()
+    {
+        const response = await axios.get('/api/received-emails');
+        console.log(response)
+        setInbox(response.data.slice((currentPage - 1) * 10, currentPage * 10));
+        setFilteredInbox(response.data.slice((currentPage - 1) * 10, currentPage * 10))
+        setTotalPages(response.data.length/10)
+        setLoading(false);
+    }
     
     const fetchEmails = async () => {
         
