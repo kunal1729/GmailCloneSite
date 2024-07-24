@@ -54,7 +54,6 @@ const checkForEmails = async ({ user, password, host, port }) => {
 
         for (const item of results) {
        
-            console.log('Processing item:', JSON.stringify(item, null, 2));
 
             // Extract email headers
             const headerPart = item.parts.find(part => part.which === 'HEADER');
