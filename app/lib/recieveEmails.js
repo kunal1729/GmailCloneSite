@@ -74,16 +74,16 @@ const checkForEmails = async ({ user, password, host, port }) => {
                 continue;
             }
 
-            // const referenceCodes = sentEmails.map(sentEmail => sentEmail.referenceCode);
-            // const foundReference = referenceCodes.some(code => {
-            //     const regex = new RegExp(`\\[${code}\\]`, 'i');
-            //     return regex.test(subject);
-            // });
+            const referenceCodes = sentEmails.map(sentEmail => sentEmail.referenceCode);
+            const foundReference = referenceCodes.some(code => {
+                const regex = new RegExp(`\\[${code}\\]`, 'i');
+                return regex.test(subject);
+            });
 
-            // if (!foundReference) {
-            //     console.log(`Email subject does not contain any reference code from sent emails. Skipping.`);
-            //     continue;
-            // }
+            if (!foundReference) {
+                console.log(`Email subject does not contain any reference code from sent emails. Skipping.`);
+                continue;
+            }
 
 
             const bodyPart = item.parts.find(part => part.which === 'TEXT');
