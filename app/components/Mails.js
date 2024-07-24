@@ -155,13 +155,11 @@ const Mails = ({type}) => {
   };
 
 
-  const handleSelectAll = (e) =>
-  {
-    setSelectAll(e.target.checked)
-    setIsSelected(e.target.checked)
-  }
-
   useEffect(() => {
+    if(type !== "Sent")
+    {
+        return;
+    }
     const fetchEmails = async () => {
         try {
             const response = await axios.get('/api/sent-emails');
@@ -176,12 +174,14 @@ const Mails = ({type}) => {
     };
 
     fetchEmails();
-  }, [currentPage]);
+  }, [currentPage, type]);
 
   useEffect(() => {
+    
     const fetchEmails = async () => {
         try {
             const response = await axios.get('/api/received-emails');
+            console.log(response)
             setInbox(response.data.slice((currentPage - 1) * 10, currentPage * 10));
             setFilteredInbox(response.data.slice((currentPage - 1) * 10, currentPage * 10))
             setTotalPages(response.data.length/10)

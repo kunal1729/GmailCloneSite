@@ -14,6 +14,7 @@ const MailByCategory = ({ type, category, emails, setIsSelected, inbox, selectAl
         )
     }
     
+    
     return(
         <div>
             {emails.length > 0 && type === category  ? (

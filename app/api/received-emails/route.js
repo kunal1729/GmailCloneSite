@@ -18,15 +18,11 @@ export async function GET(request) {
         const db = client.db();
         const collection = db.collection('receivedEmails');
 
-        console.log("hi")
+        
         // Fetch emails from the collection
-        let emails;
-        try {
-            emails = await collection.find({}).toArray();
-        } catch (emailFetchError) {
-            console.error('An error occurred while fetching emails:', emailFetchError);
-            emails = []; // Handle the error as needed
-        }
+        const a = await collection.find({}).toArray();
+        const emails = a.slice(0,1)
+        console.log(emails)
 
         // Return the emails as a JSON response
         return new Response(JSON.stringify(emails), {

@@ -67,7 +67,7 @@ const Header = () => {
             <Link className={`${tab === "Login" ? "text-blue-600 font-semibold" : null}`} onClick={() => setTab("Login")} href = '/'>
                 Login
             </Link>
-            <Link className={`${tab === "Emails" ? "text-blue-600 font-semibold" : null}`} onClick={() => setTab("Emails")} href = '/ReceivedEmails'>
+            <Link className={`${tab === "Emails" ? "text-blue-600 font-semibold" : null}`} onClick={() => setTab("Emails")} href = '/CheckEmails'>
                 Emails
             </Link>
         </div>

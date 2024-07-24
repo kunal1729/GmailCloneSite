@@ -38,7 +38,7 @@ const FilterSent = ({emails, filteredEmails, setFilteredEmails}) => {
         return match ? match[1] : null;
       }
       
-      const input = email.subject;
+      const input = email?.subject;
       const textBeforeBrackets = extractTextBeforeBrackets(input);
       if((filters.senderName === undefined || filters.senderName === email.senderName) &&
         (filters.recipient === undefined || filters.recipient === email.recipient) &&
