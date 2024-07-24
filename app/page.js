@@ -3,11 +3,13 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import  AppContext  from './context';
 import { useContext } from 'react';
+import { useState } from 'react';
 
 export default function Home() {
 
-    const {smtpPass, smtpPort, smtpUser, host, setHost, setSmtpPass, setSmtpPort, setSmtpUser, smtpStatus, setIsAuthenticated, setSmtpStatus, isAuthenticated} = useContext(AppContext);
-   
+    const {smtpPass, smtpPort, smtpUser, host, setHost, setSmtpPass, setSmtpPort, setSmtpUser, smtpStatus, setIsAuthenticated, setSmtpStatus, isAuthenticated, setMessage} = useContext(AppContext);
+    const [credentialsMissing, setCredentialsMissing] = useState(false);
+    const [error, setError] = useState(null);
     // const [recipient, setRecipient] = useState('');
     // const [senderName, setSenderName] = useState('');
     // const [subject, setSubject] = useState('');
@@ -31,6 +33,53 @@ export default function Home() {
             }
         }
     }, []);
+
+    useEffect(() => {
+        const fetchEmails = async () => {
+        
+            try {
+                const smtpUser = localStorage.getItem('smtpUser');
+                const smtpPass = localStorage.getItem('smtpPass');
+                const ImapHost = localStorage.getItem('host');
+                const ImapPort = localStorage.getItem('ImapPort');
+    
+                // Validate the credentials are available
+                if (!smtpUser || !smtpPass || !ImapHost || !ImapPort) {
+                    setMessage('SMTP credentials are missing. Please configure your account.');
+                    setCredentialsMissing(true);
+                    setLoading(false);
+                    return;
+                }
+    
+                console.log(smtpUser)
+                // Send credentials to the API
+                const response = await axios.post('/api/check-emails', {
+                    user : smtpUser,
+                    password : smtpPass,
+                    host : ImapHost,
+                    port : ImapPort
+                });
+    
+                console.log(response)
+                
+    
+                if (response.statusText === "OK") {
+                    setMessage('Emails fetched successfully.');
+                }
+                else
+                {
+                    setMessage(response.data.message || 'Error fetching emails.');
+                }
+            } catch (error) {
+                console.error('Error fetching emails:', error);
+                setError('Error fetching emails');
+            }
+        };
+        fetchEmails();
+    }, [isAuthenticated])
+    
+
+   
 
     const handleSaveDetails = async (e) => {
         e.preventDefault();
@@ -79,6 +128,9 @@ export default function Home() {
             localStorage.removeItem('smtpPort');
         }
     };
+        
+        
+    
 
   return (
     <main className="min-h-screen flex flex-col bg-gray-100 p-4">

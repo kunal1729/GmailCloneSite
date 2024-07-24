@@ -11,7 +11,7 @@ const Emails = () => {
   const [compose, setCompose] = useState(false)
   
   const {menu, type, setType} = useContext(AppContext)
-  const {smtpPass, smtpPort, smtpUser, host} = useContext(AppContext);
+  const {smtpPass, smtpPort, smtpUser, host, message} = useContext(AppContext);
     
   return (
     <div className='flex p-2 relative min-h-screen h-full pb-2 '>
@@ -20,7 +20,7 @@ const Emails = () => {
           )
          : null}
 
-        <Mails type={type} />
+        <Mails message = {message} type={type} />
         <NewMail smtpPass = {smtpPass} host = {host} smtpPort={smtpPort} smtpUser={smtpUser}  setCompose = {setCompose} compose = {compose} />
     </div>
   )
