@@ -30,12 +30,9 @@ const NewMail = ({compose, setCompose,smtpUser, smtpPass, host, smtpPort}) => {
   const handleSend = async (e) => {
     e.preventDefault();
     setStatus('Sending...');
-    setCompose(false)
-    setSenderName('')
-    setRecipient('')
-    setSubject('')
-    setBody('')
 
+    setCompose(false)
+    
 
     console.log(smtpPass)
 
@@ -59,6 +56,10 @@ const NewMail = ({compose, setCompose,smtpUser, smtpPass, host, smtpPort}) => {
         setStatus(`Error sending email: ${error.response ? error.response.data.message : error.message}`);
     }
 
+    setSenderName('')
+    setRecipient('')
+    setSubject('')
+    setBody('')
     
   };
 
