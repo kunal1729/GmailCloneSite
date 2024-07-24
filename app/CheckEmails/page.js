@@ -38,8 +38,6 @@ export default function CheckEmailsPage() {
                 });
                 
 
-                console.log(response)
-
                 if (response.statusText === "OK") {
                     setMessage(response.data.message || 'Emails fetched successfully.');
                     router.push('/ReceivedEmails');
