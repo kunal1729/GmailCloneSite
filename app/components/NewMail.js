@@ -24,7 +24,7 @@ const NewMail = ({compose, setCompose,smtpUser, smtpPass, host, smtpPort}) => {
   }
   const handleClose = () =>
   {
-      setCompose((prev) => !prev)
+      setCompose(false)
   }
 
   const handleSend = async (e) => {
@@ -52,13 +52,15 @@ const NewMail = ({compose, setCompose,smtpUser, smtpPass, host, smtpPort}) => {
         console.log("hi")
         setStatus(`Error sending email: ${error.response ? error.response.data.message : error.message}`);
     }
+
+    setCompose(false)
   };
 
 
 
 
   return (
-    <div className={`${compose ? "hidden" : ' absolute rounded-t-3xl shadow-2xl bg-white bottom-0 right-0 w-96 '} `}>
+    <div className={`${!compose ? "hidden" : ' absolute rounded-t-3xl shadow-2xl bg-white bottom-0 right-0 w-96 '} `}>
         <div className='flex p-3 bg-[#f8f4fc] rounded-t-xl font-bold justify-between'>
             <label className='text-sm'>New Message</label>
             <div className='flex space-x-2'>
