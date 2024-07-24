@@ -213,7 +213,7 @@ const Mails = ({type}) => {
         }
     };
     fetchEmails();
-  }, [currentPage]);
+  }, []);
 
   useEffect(() => {
     setCurrentPage(1)
