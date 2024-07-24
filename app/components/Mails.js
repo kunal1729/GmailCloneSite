@@ -10,7 +10,7 @@ import axios from 'axios'
 import FilterInbox from './FilterInbox'
 import FilterSent from './FilterSent'
 
-const Mails = ({type, message}) => {
+const Mails = ({type, message, compose}) => {
 
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1);
@@ -156,7 +156,7 @@ const Mails = ({type, message}) => {
     };
 
     fetchEmails();
-  }, [currentPage, type]);
+  }, [currentPage, type, compose]);
 
   useEffect(() => {
     console.log(message)

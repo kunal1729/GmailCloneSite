@@ -20,7 +20,7 @@ const Emails = () => {
           )
          : null}
 
-        <Mails message = {message} type={type} />
+        <Mails compose={compose} message = {message} type={type} />
         <NewMail smtpPass = {smtpPass} host = {host} smtpPort={smtpPort} smtpUser={smtpUser}  setCompose = {setCompose} compose = {compose} />
     </div>
   )
