@@ -32,6 +32,8 @@ const Mails = ({type}) => {
   const [loading, setLoading] = useState(true);
   const [filteredInbox, setFilteredInbox] = useState([]);
   const [filteredSent, setFilteredSent] = useState([]);
+  const [message, setMessage] = useState('');
+  const [credentialsMissing, setCredentialsMissing] = useState(false);
   
   const emailCategories = [
     { category : 'Inbox' },
@@ -44,26 +46,6 @@ const Mails = ({type}) => {
     { category: 'Trash' }
   ];
 
-  const categoryMap = {
-    Inbox: setInbox,
-    Starred: setStarred,
-    Snoozed: setSnoozed,
-    Sent: setSnoozed,
-    Drafts: setDrafts,
-    Spam: setSpam,
-    Archived: setArchived,
-    Trash: setTrash
-  };
-  const categoryMap2 = {
-    Inbox: inbox,
-    Starred: starred,
-    Snoozed: snoozed,
-    Sent: sent,
-    Drafts: drafts,
-    Spam: spam,
-    Archived: archived,
-    Trash: trash
-  };
   
 
   const moveToTrash = () => {
@@ -179,13 +161,46 @@ const Mails = ({type}) => {
   useEffect(() => {
     
     const fetchEmails = async () => {
+        
         try {
-            const response = await axios.get('/api/received-emails');
+            const smtpUser = localStorage.getItem('smtpUser');
+            const smtpPass = localStorage.getItem('smtpPass');
+            const ImapHost = localStorage.getItem('host');
+            const ImapPort = localStorage.getItem('ImapPort');
+
+            // Validate the credentials are available
+            if (!smtpUser || !smtpPass || !ImapHost || !ImapPort) {
+                setMessage('SMTP credentials are missing. Please configure your account.');
+                setCredentialsMissing(true);
+                setLoading(false);
+                return;
+            }
+
+            console.log(smtpUser)
+            // Send credentials to the API
+            const response = await axios.post('/api/check-emails', {
+                user : smtpUser,
+                password : smtpPass,
+                host : ImapHost,
+                port : ImapPort
+            });
+
             console.log(response)
-            setInbox(response.data.slice((currentPage - 1) * 10, currentPage * 10));
-            setFilteredInbox(response.data.slice((currentPage - 1) * 10, currentPage * 10))
-            setTotalPages(response.data.length/10)
-            setLoading(false);
+            
+
+            if (response.statusText === "OK") {
+                setMessage(response.data.message || 'Emails fetched successfully.');
+                const response2 = await axios.get('/api/received-emails');
+                console.log(response2)
+                setInbox(response2.data.slice((currentPage - 1) * 10, currentPage * 10));
+                setFilteredInbox(response2.data.slice((currentPage - 1) * 10, currentPage * 10))
+                setTotalPages(response2.data.length/10)
+                setLoading(false);
+            }
+            else
+            {
+                setMessage(response.data.message || 'Error fetching emails.');
+            }
         } catch (error) {
             console.error('Error fetching emails:', error);
             setError('Error fetching emails');

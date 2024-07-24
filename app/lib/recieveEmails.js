@@ -79,10 +79,10 @@ const checkForEmails = async ({ user, password, host, port }) => {
             //     return regex.test(subject);
             // });
 
-            if (!foundReference) {
-                console.log(`Email subject does not contain any reference code from sent emails. Skipping.`);
-                continue;
-            }
+            // if (!foundReference) {
+            //     console.log(`Email subject does not contain any reference code from sent emails. Skipping.`);
+            //     continue;
+            // }
 
 
             const bodyPart = item.parts.find(part => part.which === 'TEXT');
