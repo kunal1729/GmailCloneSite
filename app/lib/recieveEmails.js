@@ -50,7 +50,7 @@ const checkForEmails = async ({ user, password, host, port }) => {
         const sentCollection = db.collection('sentEmails');
 
         // Fetch sent emails for reference matching
-        const sentEmails = await sentCollection.find().toArray();
+        // const sentEmails = await sentCollection.find().toArray();
 
         for (const item of results) {
        
@@ -67,17 +67,17 @@ const checkForEmails = async ({ user, password, host, port }) => {
             console.log(`Email subject: ${subject}`);
 
            
-            const matchingSentEmail = sentEmails.find(sentEmail => sentEmail.recipient === email);
-            if (!matchingSentEmail) {
-                console.log(`Email from ${from} not found in sent emails. Skipping.`);
-                continue;
-            }
+            // const matchingSentEmail = sentEmails.find(sentEmail => sentEmail.recipient === email);
+            // if (!matchingSentEmail) {
+            //     console.log(`Email from ${from} not found in sent emails. Skipping.`);
+            //     continue;
+            // }
 
-            const referenceCodes = sentEmails.map(sentEmail => sentEmail.referenceCode);
-            const foundReference = referenceCodes.some(code => {
-                const regex = new RegExp(`\\[${code}\\]`, 'i');
-                return regex.test(subject);
-            });
+            // const referenceCodes = sentEmails.map(sentEmail => sentEmail.referenceCode);
+            // const foundReference = referenceCodes.some(code => {
+            //     const regex = new RegExp(`\\[${code}\\]`, 'i');
+            //     return regex.test(subject);
+            // });
 
             if (!foundReference) {
                 console.log(`Email subject does not contain any reference code from sent emails. Skipping.`);
