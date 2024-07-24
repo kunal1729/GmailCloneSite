@@ -3,7 +3,7 @@ import Imap from 'imap-simple';
 import { MongoClient } from 'mongodb';
 import { flattenDeep } from 'lodash';
 
-const clientPromise = new MongoClient(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }).connect();
+const clientPromise = new MongoClient(process.env.MONGODB_URI).connect();
 
 const getParts = (parts) => {
     return flattenDeep(parts.map(part => {
