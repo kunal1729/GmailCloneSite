@@ -63,12 +63,12 @@ export default function Home() {
                 console.log(response)
                 
     
-                if (response.statusText === "OK") {
+                if (response.status === 200) {
                     setMessage('Emails fetched successfully.');
                 }
                 else
                 {
-                    setMessage(response.data.message || 'Error fetching emails.');
+                    setMessage('Error fetching emails.');
                 }
             } catch (error) {
                 console.error('Error fetching emails:', error);
