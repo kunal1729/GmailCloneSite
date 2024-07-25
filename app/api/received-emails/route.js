@@ -23,7 +23,6 @@ export async function GET(request) {
 <<<<<<< HEAD
         const emails = await collection.find({}).toArray();
 =======
-        const a = await collection.find({}).toArray();
         
         
 >>>>>>> d71a52ca2ca4454d8e9b8800a58c29cfc3cc1965
