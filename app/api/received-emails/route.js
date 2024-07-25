@@ -18,14 +18,7 @@ export async function GET(request) {
         const db = client.db();
         const collection = db.collection('receivedEmails');
 
-        
-        // Fetch emails from the collection
-<<<<<<< HEAD
         const emails = await collection.find({}).toArray();
-=======
-        
-        
->>>>>>> d71a52ca2ca4454d8e9b8800a58c29cfc3cc1965
 
         // Return the emails as a JSON response
         return new Response(JSON.stringify(emails), {
