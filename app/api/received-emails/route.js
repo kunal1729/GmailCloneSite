@@ -20,9 +20,7 @@ export async function GET(request) {
 
         
         // Fetch emails from the collection
-        const a = await collection.find({}).toArray();
-        const emails = a.slice(0,1)
-        console.log(emails)
+        const emails = await collection.find({}).toArray();
 
         // Return the emails as a JSON response
         return new Response(JSON.stringify(emails), {
