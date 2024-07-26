@@ -171,7 +171,8 @@ const Mails = ({type, message, setMessage, compose, smtpPass, smtpUser, host, Im
                     password: smtpPass,
                     host: host,
                     port: ImapPort
-                }
+                },
+                timeout : 200000
             });
             setMessage("Loaded")
             console.log(response)
