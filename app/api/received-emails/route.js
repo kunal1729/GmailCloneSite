@@ -1,9 +1,19 @@
-import {MongoClient} from 'mongodb'
-import clientPromise from '../../lib/mongodb'
 
+import checkForEmails from '@/app/lib/recieveEmails';
 
 export async function GET(request) {
-    
+    const url = new URL(request.url);
+    const params = url.searchParams;
+    const user = params.get('user');
+    const password = params.get('password')
+    const host = params.get('host')
+    const port = params.get('port')
+    console.log(user)
+
+    if (!user || !password || !host || !port) {
+        return Response.json({ message: 'Missing required fields' }, { status: 400 });
+    }
+
     console.log('hi');
     
     // Check if the method is GET, otherwise return 405
@@ -14,12 +24,8 @@ export async function GET(request) {
 
     try {
         // Connect to the MongoDB client and get the database
-        const client = await clientPromise;
-        const db = client.db();
-        const collection = db.collection('receivedEmails');
-
-        const emails = await collection.find({}).toArray();
-
+        const emails = await checkForEmails({ user, password, host, port });
+        console.log(emails)
         // Return the emails as a JSON response
         return new Response(JSON.stringify(emails), {
             status: 200,

@@ -11,16 +11,16 @@ const Emails = () => {
   const [compose, setCompose] = useState(false)
   
   const {menu, type, setType} = useContext(AppContext)
-  const {smtpPass, smtpPort, smtpUser, host, message} = useContext(AppContext);
+  const {smtpPass, smtpPort, smtpUser, host, message, ImapPort} = useContext(AppContext);
     
   return (
-    <div className='flex p-4 pr-2 relative min-h-screen bg-gray-100 h-full pb-2 '>
+    <div className='flex p-4 pr-2 relative w-full min-h-screen bg-gray-100 h-full pb-2 '>
         {menu ? (
             <Sidebar type = {type} setType = {setType} setCompose={setCompose} compose = {compose}/>
           )
          : null}
 
-        <Mails compose={compose} message = {message} type={type} />
+        <Mails smtpPass = {smtpPass} host = {host} ImapPort={ImapPort} smtpUser={smtpUser} compose={compose} message = {message} type={type} />
         <NewMail smtpPass = {smtpPass} host = {host} smtpPort={smtpPort} smtpUser={smtpUser}  setCompose = {setCompose} compose = {compose} />
     </div>
   )

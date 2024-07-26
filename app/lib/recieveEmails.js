@@ -37,17 +37,16 @@ const checkForEmails = async ({ user, password, host, port }) => {
         const fetchOptions = {
             bodies: ['HEADER', 'TEXT', ''],
             struct: true, 
-            markSeen: true 
         };
 
         const results = await connection.search(searchCriteria, fetchOptions);
-
-
         // Connect to MongoDB
         const client = await clientPromise;
         const db = client.db();
         const receivedCollection = db.collection('receivedEmails');
         const sentCollection = db.collection('sentEmails');
+
+        var emails = [];
 
         // Fetch sent emails for reference matching
         // const sentEmails = await sentCollection.find().toArray();
@@ -64,7 +63,6 @@ const checkForEmails = async ({ user, password, host, port }) => {
             const name = matches ? matches[1] : from;
             const email = matches ? matches[2] : '';
 
-            console.log(`Email subject: ${subject}`);
 
            
             // const matchingSentEmail = sentEmails.find(sentEmail => sentEmail.recipient === email);
@@ -102,6 +100,8 @@ const checkForEmails = async ({ user, password, host, port }) => {
                 attachments: []
             };
 
+            emails.push(emailDocument);
+
             // Extract attachments
             // const parts = getParts(item.attributes.struct);
             // const attachmentPromises = parts.filter(part => part.disposition && part.disposition.type.toUpperCase() === 'ATTACHMENT')
@@ -116,9 +116,10 @@ const checkForEmails = async ({ user, password, host, port }) => {
             // Insert the email into the receivedEmails collection
             await receivedCollection.insertOne(emailDocument);
         }
-
-        // Closing connection 
+        console.log(emails)
         connection.end();
+        return emails;
+        // Closing connection 
     } catch (error) {
         console.error('Error checking emails:', error);
         throw error;

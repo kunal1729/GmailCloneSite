@@ -15,9 +15,10 @@ export function AppWrapper({ children }) {
     const [menu, setMenu] = useState(false)
     const [type, setType] = useState("Inbox");
     const [message, setMessage] = useState('');
+    const [ImapPort, setImapPort] = useState('993');
 
   return (
-    <AppContext.Provider value={{smtpPass, smtpPort, smtpUser, host, smtpStatus, isAuthenticated, setHost, setSmtpPass, setSmtpPort, setSmtpUser, setIsAuthenticated, setSmtpStatus, menu, setMenu, type, setType, message, setMessage}}>
+    <AppContext.Provider value={{smtpPass, smtpPort, smtpUser, host, smtpStatus, isAuthenticated, setHost, setSmtpPass, setSmtpPort, setSmtpUser, setIsAuthenticated, setSmtpStatus, menu, setMenu, type, setType, message, setMessage, ImapPort}}>
       {children}
     </AppContext.Provider>
   );

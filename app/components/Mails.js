@@ -10,7 +10,7 @@ import axios from 'axios'
 import FilterInbox from './FilterInbox'
 import FilterSent from './FilterSent'
 
-const Mails = ({type, message, compose}) => {
+const Mails = ({type, message, compose, smtpPass, smtpUser, ImapPort, host}) => {
 
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1);
@@ -145,6 +145,8 @@ const Mails = ({type, message, compose}) => {
     const fetchEmails = async () => {
         try {
             const response = await axios.get('/api/sent-emails');
+            console.log(response)
+            console.log("h1")
             setSent(response.data.reverse().slice((currentPage - 1) * 10, currentPage * 10));
             setFilteredSent(response.data.reverse().slice((currentPage - 1) * 10, currentPage * 10))
             setTotalPages(response.data.length/10)
@@ -164,7 +166,14 @@ const Mails = ({type, message, compose}) => {
     {
         const showInbox = async () =>
         {
-            const response = await axios.get('/api/received-emails');
+            const response = await axios.get('/api/received-emails', {
+                params: {
+                    user: smtpUser,
+                    password: smtpPass,
+                    host: host,
+                    port: ImapPort
+                }
+            });
             console.log(response)
             setInbox(response.data.slice((currentPage - 1) * 10, currentPage * 10));
             setFilteredInbox(response.data.slice((currentPage - 1) * 10, currentPage * 10))

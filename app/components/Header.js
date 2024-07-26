@@ -25,7 +25,7 @@ const Header = () => {
   }
 
   return (
-    <div className='h-16 p-2 pl-8 pr-8 shadow-lg flex justify-between' >
+    <div className='h-16 p-2 pl-8 pr-8 w-full shadow-lg flex justify-between' >
         
         <div className='space-x-8 ml-2 flex'>
             {tab === "Emails" ?
