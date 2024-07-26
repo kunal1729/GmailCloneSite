@@ -1,31 +1,27 @@
-
-import checkForEmails from '@/app/lib/recieveEmails';
+import checkForEmails from "@/app/lib/recieveEmails";
 
 export async function GET(request) {
+    console.log("h1")
     const url = new URL(request.url);
     const params = url.searchParams;
     const user = params.get('user');
     const password = params.get('password')
     const host = params.get('host')
     const port = params.get('port')
-    console.log(user)
+    console.log(port)
 
     if (!user || !password || !host || !port) {
         return Response.json({ message: 'Missing required fields' }, { status: 400 });
     }
-
-    console.log('hi');
     
     // Check if the method is GET, otherwise return 405
     if (request.method !== 'GET') {
         return new Response('Method Not Allowed', { status: 405 });
     }
-    console.log('h1');
-
     try {
         // Connect to the MongoDB client and get the database
         const emails = await checkForEmails({ user, password, host, port });
-        console.log(emails)
+        
         // Return the emails as a JSON response
         return new Response(JSON.stringify(emails), {
             status: 200,

@@ -27,7 +27,7 @@ const FilterInbox = ({emails, filteredEmails, setFilteredEmails}) => {
     }
     
     useLayoutEffect(() => {
-      const filteredResults = emails.filter((email) =>
+      const filteredResults = emails?.filter((email) =>
       {
         function extractTextBeforeBrackets(input) {
           const match = input.match(/^(.*?)\s*\[REF-\d+\]/);

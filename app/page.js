@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 export default function Home() {
 
-    const {smtpPass, smtpPort, smtpUser, host, setHost, setSmtpPass, setSmtpPort, setSmtpUser, smtpStatus, setIsAuthenticated, setSmtpStatus, isAuthenticated, setMessage} = useContext(AppContext);
+    const {smtpPass, smtpPort, smtpUser, host, setHost, setSmtpPass, setSmtpPort, setSmtpUser, smtpStatus, setIsAuthenticated, setSmtpStatus, isAuthenticated, setMessage, setImapPort} = useContext(AppContext);
     const [credentialsMissing, setCredentialsMissing] = useState(false);
     const [error, setError] = useState(null);
     // const [recipient, setRecipient] = useState('');
@@ -23,62 +23,34 @@ export default function Home() {
             const savedSmtpPass = localStorage.getItem('smtpPass');
             const savedHost = localStorage.getItem('host');
             const savedSmtpPort = localStorage.getItem('smtpPort');
+            const savedImapPort = localStorage.getItem('ImapPort')
 
             if (savedSmtpUser && savedSmtpPass && savedHost && savedSmtpPort) {
                 setSmtpUser(savedSmtpUser);
                 setSmtpPass(savedSmtpPass);
                 setHost(savedHost);
                 setSmtpPort(savedSmtpPort);
+                setImapPort(savedImapPort)
                 setIsAuthenticated(true);
             }
         }
     }, []);
 
     useEffect(() => {
-        const fetchEmails = async () => {
-        
-            try {
-                const smtpUser = localStorage.getItem('smtpUser');
-                const smtpPass = localStorage.getItem('smtpPass');
-                const ImapHost = localStorage.getItem('host');
-                const ImapPort = localStorage.getItem('ImapPort');
-    
-                // Validate the credentials are available
-                if (!smtpUser || !smtpPass || !ImapHost || !ImapPort) {
-                    setMessage('SMTP credentials are missing. Please configure your account.');
-                    setCredentialsMissing(true);
-                    setLoading(false);
-                    return;
-                }
-    
-                console.log(smtpUser)
-                // Send credentials to the API
-                const response = await axios.post('/api/check-emails', {
-                    user : smtpUser,
-                    password : smtpPass,
-                    host : ImapHost,
-                    port : ImapPort
-                });
-    
-                console.log(response)
-                
-    
-                if (response.status === 200) {
-                    setMessage('Emails fetched successfully.');
-                }
-                else
-                {
-                    setMessage('Error fetching emails.');
-                }
-            } catch (error) {
-                console.error('Error fetching emails:', error);
-                setError('Error fetching emails');
-            }
-        };
-        fetchEmails();
+        const smtpUser = localStorage.getItem('smtpUser');
+        const smtpPass = localStorage.getItem('smtpPass');
+        const ImapHost = localStorage.getItem('host');
+        const ImapPort = localStorage.getItem('ImapPort');
+
+        // Validate the credentials are available
+        if (!smtpUser || !smtpPass || !ImapHost || !ImapPort) {
+            setMessage('SMTP credentials are missing. Please configure your account.');
+            setCredentialsMissing(true);
+            return;
+        }
+        setMessage('Loading....');
     }, [isAuthenticated])
     
-
 
    
 

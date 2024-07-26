@@ -5,7 +5,7 @@ const imapConfig = {
         host: process.env.SMTP_HOST,
         port: process.env.IMAP_PORT, // IMAP port should be a number
         tls: true, // Secure connection
-        tlsOptions: { rejectUnauthorized: false , servername:process.env.SMTP_HOST },
+        tlsOptions: { rejectUnauthorized: false , servername:host },
         authTimeout: 10000 // Optional, timeout for authentication
     }
 };

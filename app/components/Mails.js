@@ -10,7 +10,7 @@ import axios from 'axios'
 import FilterInbox from './FilterInbox'
 import FilterSent from './FilterSent'
 
-const Mails = ({type, message, compose, smtpPass, smtpUser, ImapPort, host}) => {
+const Mails = ({type, message, setMessage, compose, smtpPass, smtpUser, host, ImapPort}) => {
 
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1);
@@ -145,12 +145,11 @@ const Mails = ({type, message, compose, smtpPass, smtpUser, ImapPort, host}) => 
     const fetchEmails = async () => {
         try {
             const response = await axios.get('/api/sent-emails');
-            console.log(response)
-            console.log("h1")
             setSent(response.data.reverse().slice((currentPage - 1) * 10, currentPage * 10));
             setFilteredSent(response.data.reverse().slice((currentPage - 1) * 10, currentPage * 10))
             setTotalPages(response.data.length/10)
             setLoading(false);
+            console.log("h1")
         } catch (error) {
             console.error('Error fetching sent emails:', error);
             setLoading(false);
@@ -162,7 +161,7 @@ const Mails = ({type, message, compose, smtpPass, smtpUser, ImapPort, host}) => 
 
   useEffect(() => {
     console.log(message)
-    if(message === 'Emails fetched successfully.')
+    if(message === 'Loading....' || message === 'Loaded')
     {
         const showInbox = async () =>
         {
@@ -174,6 +173,7 @@ const Mails = ({type, message, compose, smtpPass, smtpUser, ImapPort, host}) => 
                     port: ImapPort
                 }
             });
+            setMessage("Loaded")
             console.log(response)
             setInbox(response.data.slice((currentPage - 1) * 10, currentPage * 10));
             setFilteredInbox(response.data.slice((currentPage - 1) * 10, currentPage * 10))
@@ -182,7 +182,7 @@ const Mails = ({type, message, compose, smtpPass, smtpUser, ImapPort, host}) => 
         }
         showInbox();
     }
-  }, [currentPage, message])
+  }, [])
   
 
   
@@ -196,7 +196,7 @@ const Mails = ({type, message, compose, smtpPass, smtpUser, ImapPort, host}) => 
   
   return (
     <div className='w-full ml-2 mb-2 border-2 shadow-lg rounded-xl bg-white h-full mr-4'>
-        {message !== 'Emails fetched successfully.' ?
+        {message !== 'Loaded' ?
         <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-blue-900 via-gray-900 to-black text-white p-4">
             <div className="text-center">
                 <p className="text-xl mb-6 text-white">{message}</p>

@@ -1,5 +1,4 @@
 
-
 import checkForEmails from '../../lib/recieveEmails';
 
 export async function POST(request) {
@@ -10,7 +9,7 @@ export async function POST(request) {
         return Response.json({ message: 'Missing required fields' }, { status: 400 });
     }
 
-    console.log(host)
+    console.log(port)
 
     try {
         console.log("hi");
