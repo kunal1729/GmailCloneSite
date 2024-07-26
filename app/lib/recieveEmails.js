@@ -36,8 +36,7 @@ const checkForEmails = async ({ user, password, host, port }) => {
         const searchCriteria = ['UNSEEN'];
         const fetchOptions = {
             bodies: ['HEADER', 'TEXT', ''],
-            struct: true, 
-            markSeen: true 
+            struct: true 
         };
 
         const results = await connection.search(searchCriteria, fetchOptions);
