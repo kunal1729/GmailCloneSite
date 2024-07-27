@@ -13,7 +13,7 @@ import FilterSent from './FilterSent'
 const Mails = ({type, message, setMessage, compose, smtpPass, smtpUser, host, ImapPort}) => {
 
   const [currentPage, setCurrentPage] = useState(1)
-  const [totalPages, setTotalPages] = useState(1);
+  const [totalPages, setTotalPages] = useState(10);
   const [selectAll, setSelectAll] = useState(false) 
   const [isSelected, setIsSelected] = useState(false)
   const [selectedIds, setSelectedIds] = useState([]);
@@ -172,12 +172,12 @@ const Mails = ({type, message, setMessage, compose, smtpPass, smtpUser, host, Im
                     user: smtpUser,
                     password: smtpPass,
                     host: host,
-                    port: ImapPort
+                    port: ImapPort,
+                    currentPage : currentPage
                 }
             });
-            setInbox(response.data.slice((currentPage - 1) * 10, currentPage * 10));
-            setFilteredInbox(response.data.slice((currentPage - 1) * 10, currentPage * 10))
-            setTotalPages(response.data.length/10)
+            setInbox(response.data);
+            setFilteredInbox(response.data)
             setLoading(false);
             setMessage("Loaded")
         }
@@ -196,7 +196,7 @@ const Mails = ({type, message, setMessage, compose, smtpPass, smtpUser, host, Im
 
   
   return (
-    <div className='w-[90%] ml-2 mb-2 border-2 shadow-lg rounded-xl bg-white '>
+    <div className='w-[85%] ml-2 mb-2 border-2 shadow-lg rounded-xl bg-white '>
         {type === "Sent" ?
         <FilterSent setEmails = {setSent} filteredEmails={filteredSent} setFilteredEmails={setFilteredSent} emails = {sent} /> 
         : type === "Inbox" ?

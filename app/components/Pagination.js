@@ -34,7 +34,7 @@ const Pagination = ({currentPage, setCurrentPage, totalPages}) => {
       }
     }
     return (
-        <div className=' items-center rounded-md flex flex-col border-2 bg-[#c2e7ff] w-72 mx-auto border-cyan'>
+        <div className=' items-center rounded-md flex flex-col border-2 bg-[#c2e7ff] w-[80%] mx-auto border-cyan'>
           <ul className=' text-sm  justify-end flex mx-auto space-x-3 items-center'>
             <li className='pt-1' >
                 <button onClick={prevPage}>

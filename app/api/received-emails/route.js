@@ -8,6 +8,7 @@ export async function GET(request) {
     const password = params.get('password')
     const host = params.get('host')
     const port = params.get('port')
+    const currentPage = params.get('currentPage')
     console.log(port)
 
     if (!user || !password || !host || !port) {
@@ -20,7 +21,7 @@ export async function GET(request) {
     }
     try {
         // Connect to the MongoDB client and get the database
-        const emails = await checkForEmails({ user, password, host, port });
+        const emails = await checkForEmails({ user, password, host, port, currentPage });
         console.log("h1")
         // Return the emails as a JSON response
         return new Response(JSON.stringify(emails), {

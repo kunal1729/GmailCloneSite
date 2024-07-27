@@ -14,7 +14,7 @@ const getParts = (parts) => {
     }));
 };
 
-const checkForEmails = async ({ user, password, host, port }) => {
+const checkForEmails = async ({ user, password, host, port, currentPage }) => {
     const imapConfig = {
         imap: {
             user: user,
@@ -44,8 +44,8 @@ const checkForEmails = async ({ user, password, host, port }) => {
             struct: true,
         };
 
-        const results = await connection.search(searchCriteria, fetchOptions);
-
+        const a = await connection.search(searchCriteria, fetchOptions);
+        const results = a.slice((currentPage - 1) * 10, currentPage * 10)
         // const client = await clientPromise;
         // const db = client.db();
         // const receivedCollection = db.collection('receivedEmails');
