@@ -28,21 +28,24 @@ const checkForEmails = async ({ user, password, host, port }) => {
     };
 
     try {
+        var delay = 24 * 3600 * 1000;
+        var yesterday = new Date();
+        yesterday.setTime(Date.now() - delay);
+        yesterday = yesterday.toISOString();
         // Connecting  to IMAP
         const connection = await Imap.connect(imapConfig);
-        await connection.openBox('INBOX');
+        const box = await connection.openBox('INBOX');
 
+        console.log("bye")
         // we will only check for unseen messages
-        const searchCriteria = ['UNSEEN'];
+        const searchCriteria = ['UNSEEN', ['SINCE', yesterday]];
         const fetchOptions = {
             bodies: ['HEADER', 'TEXT', ''],
-            struct: true 
+            struct: true,
         };
 
         const results = await connection.search(searchCriteria, fetchOptions);
 
-
-        // Connect to MongoDB
         // const client = await clientPromise;
         // const db = client.db();
         // const receivedCollection = db.collection('receivedEmails');

@@ -51,7 +51,7 @@ export default function Home() {
         setMessage('Loading....');
     }, [isAuthenticated])
     
-
+    
    
 
     const handleSaveDetails = async (e) => {

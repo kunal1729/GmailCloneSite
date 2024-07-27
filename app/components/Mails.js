@@ -163,27 +163,27 @@ const Mails = ({type, message, setMessage, compose, smtpPass, smtpUser, host, Im
     console.log(message)
     if(message === 'Loading....' || message === 'Loaded')
     {
+        
         const showInbox = async () =>
         {
+            console.log("hello")
             const response = await axios.get('/api/received-emails', {
                 params: {
                     user: smtpUser,
                     password: smtpPass,
                     host: host,
                     port: ImapPort
-                },
-                timeout : 100000
+                }
             });
-            setMessage("Loaded")
-            console.log(response)
             setInbox(response.data.slice((currentPage - 1) * 10, currentPage * 10));
             setFilteredInbox(response.data.slice((currentPage - 1) * 10, currentPage * 10))
             setTotalPages(response.data.length/10)
             setLoading(false);
+            setMessage("Loaded")
         }
         showInbox();
     }
-  }, [])
+  }, [currentPage])
   
 
   
