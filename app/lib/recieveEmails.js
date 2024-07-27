@@ -23,7 +23,7 @@ const checkForEmails = async ({ user, password, host, port }) => {
             port: port,
             tls: true,
             tlsOptions: { rejectUnauthorized: false , servername:host },
-            authTimeout: 10000
+            authTimeout: 100000
         }
     };
 
@@ -64,7 +64,6 @@ const checkForEmails = async ({ user, password, host, port }) => {
             const name = matches ? matches[1] : from;
             const email = matches ? matches[2] : '';
 
-            console.log(`Email subject: ${subject}`);
 
            
             // const matchingSentEmail = sentEmails.find(sentEmail => sentEmail.recipient === email);
@@ -102,7 +101,7 @@ const checkForEmails = async ({ user, password, host, port }) => {
                 attachments: []
             };
 
-            emails.push(...emails, emailDocument)
+            emails.push(emailDocument)
 
             // Extract attachments
             // const parts = getParts(item.attributes.struct);

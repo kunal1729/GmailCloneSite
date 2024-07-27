@@ -21,7 +21,7 @@ export async function GET(request) {
     try {
         // Connect to the MongoDB client and get the database
         const emails = await checkForEmails({ user, password, host, port });
-        
+        console.log("h1")
         // Return the emails as a JSON response
         return new Response(JSON.stringify(emails), {
             status: 200,
