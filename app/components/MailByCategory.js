@@ -104,7 +104,7 @@ const MailByCategory = ({ type, category, emails, setIsSelected, inbox, selectAl
                         <span className='hidden lg:inline'> {email.body.slice(0, 20)}...</span> 
                     </p>
                     {type !== "Sent" ?
-                    <span className='text-xs'>
+                    <span className='text-xs hidden md:inline'>
                         {new Date(email.date).toLocaleString()}
                     </span> : null}
                     {type === "Sent" ?

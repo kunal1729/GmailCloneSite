@@ -14,7 +14,7 @@ const Emails = () => {
   const {smtpPass, smtpPort, smtpUser, host, message, setMessage, ImapPort} = useContext(AppContext);
     
   return (
-    <div className='flex p-4 pr-2 relative w-full min-h-screen bg-gray-100 h-full pb-2 '>
+    <div className='flex relative min-h-screen p-2 bg-gray-100 h-full w-full pb-2 '>
         {menu ? (
             <Sidebar type = {type} setType = {setType} setCompose={setCompose} compose = {compose}/>
           )

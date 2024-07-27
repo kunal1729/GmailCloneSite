@@ -26,7 +26,7 @@ const Header = () => {
   }
 
   return (
-    <div className='h-16 p-2 pl-8 pr-8 w-full shadow-lg flex justify-between' >
+    <div className='h-16 p-2 lg:pl-8 pr-8 w-full shadow-lg flex justify-between' >
         
         <div className='space-x-8 ml-2 flex'>
             {tab === "Emails" ?
@@ -38,7 +38,7 @@ const Header = () => {
             {!isActive ?
             <Link href = '/' className=' hover space-x-2 items-center flex'>
                 <BsMailbox2 className='w-8 h-8' />
-                <span className='font-semibold text-xl text-gray-500'>Fintract WebMail</span>
+                <span className='font-semibold text-xl hidden md:inline text-gray-500'>Fintract WebMail</span>
             </Link>
             : null}
             

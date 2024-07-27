@@ -196,14 +196,7 @@ const Mails = ({type, message, setMessage, compose, smtpPass, smtpUser, host, Im
 
   
   return (
-    <div className='w-full ml-2 mb-2 border-2 shadow-lg rounded-xl bg-white h-full mr-4'>
-        {message !== 'Loaded' ?
-        <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-blue-900 via-gray-900 to-black text-white p-4">
-            <div className="text-center">
-                <p className="text-xl mb-6 text-white">{message}</p>
-            </div>
-        </div> :
-        <div>
+    <div className='w-[90%] ml-2 mb-2 border-2 shadow-lg rounded-xl bg-white '>
         {type === "Sent" ?
         <FilterSent setEmails = {setSent} filteredEmails={filteredSent} setFilteredEmails={setFilteredSent} emails = {sent} /> 
         : type === "Inbox" ?
@@ -271,10 +264,7 @@ const Mails = ({type, message, setMessage, compose, smtpPass, smtpUser, host, Im
                 />)})}
                 <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />
             </div>
-        </div>}
-        {/* <Footer/> */}
-    </div>
-  )
+    </div>)
 }
 
 export default Mails

@@ -32,7 +32,7 @@ const Sidebar = ({compose, setCompose, type, setType}) => {
   }
 
   return (
-    <div className='p-4 w-[20%] space-y-2 text-sm flex flex-col'>
+    <div className='lg:p-4 p-1  lg:w-[20%] w-[10%] space-y-2 text-sm flex flex-col'>
       <button onClick={handleCompose} className='p-4 rounded-2xl font-semibold mx-auto space-x-4 items-center flex bg-[#c2e7ff]'>
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
         <span className='text-sm hidden md:inline'>Compose</span>
